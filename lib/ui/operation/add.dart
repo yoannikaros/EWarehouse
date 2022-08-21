@@ -8,6 +8,9 @@ import '../../shared/theme.dart';
 import '../page_one/cariBarang.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
+//Readme
+//terdapat 1 url api, baris nomor 70
+
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
 
@@ -21,7 +24,7 @@ class _AddState extends State<Add> {
   //inisialize field
   var barang = TextEditingController();
   var barcode = '99999';
-  var idsatuan = '9';
+  var idsatuan = TextEditingController();
   var jenis = TextEditingController();
   var hargaumum = TextEditingController();
   var hargagrosir = TextEditingController();
@@ -68,7 +71,7 @@ class _AddState extends State<Add> {
         body: {
           "barang": barang.text,
           "barcode": barcode,
-          "idsatuan": idsatuan,
+          "idsatuan": idsatuan.text,
           "jenis": selectedValue,
           "hargaumum": hargaumum.text,
           "hargagrosir": hargagrosir.text,
@@ -140,6 +143,7 @@ class _AddState extends State<Add> {
                 // satuanInput(),
                 hargagrosirinput(),
                 hargaumuminput(),
+                jumlahperdus(),
                 SizedBox(height: 40),
 
                 Container(
@@ -318,6 +322,7 @@ class _AddState extends State<Add> {
                   Expanded(
                     child: TextFormField(
                       controller: hargagrosir,
+                      keyboardType: TextInputType.number,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Masukan Harga Grosir',
@@ -372,9 +377,65 @@ class _AddState extends State<Add> {
                   Expanded(
                     child: TextFormField(
                       controller: hargaumum,
+                      keyboardType: TextInputType.number,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Masukan Harga Umum',
+                          hintStyle: subtitleTextStyle),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Ngga boleh kosong mah';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget jumlahperdus() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Jumlah isi barang',
+              style: primaryTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: medium,
+              )),
+          SizedBox(
+            height: 12,
+          ),
+          Container(
+            height: 60,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12)),
+            child: Center(
+              child: Row(
+                children: [
+                  Image.asset(
+                    'aset/poin.png',
+                    width: 25,
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      controller: idsatuan,
+                      keyboardType: TextInputType.number,
+                      style: primaryTextStyle,
+                      decoration: InputDecoration.collapsed(
+                          hintText: 'Masukan jumlah isi barang',
                           hintStyle: subtitleTextStyle),
                       validator: (value) {
                         if (value!.isEmpty) {

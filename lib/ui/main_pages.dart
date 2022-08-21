@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tokolina/model/barangModels.dart';
 import 'package:tokolina/shared/theme.dart';
 import 'package:tokolina/ui/page_one/barang.dart';
 import 'package:tokolina/ui/page_one/pgone.dart';
 import 'package:tokolina/ui/page_three/pgthree.dart';
-import 'package:tokolina/ui/page_two/pgtwo.dart';
-import 'package:tokolina/ui/widget/KosnumenCard.dart';
+import 'package:double_back_to_close/double_back_to_close.dart';
 
 class MainPage extends StatefulWidget {
   //dari stateless ke stateful
@@ -108,7 +106,9 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       backgroundColor: utama, //warna background
       bottomNavigationBar: customBottomNav(), //navigasi bawah
-      body: body(),
+      body: DoubleBack(
+          message:"Ketuk dua kali untuk keluar mah",
+          child: body()),
     );
   }
 }

@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 
 import '../../shared/theme.dart';
 
+//Readme
+//terdapat 3 url api, baris nomor 46,67 dan 96
+
 class Edit extends StatefulWidget {
   Edit({
     required this.kode_item,
@@ -24,6 +27,7 @@ class _EditState extends State<Edit> {
   var jenis = TextEditingController();
   var hargaumum = TextEditingController();
   var hargagrosir = TextEditingController();
+  var idsatuan = TextEditingController();
 
   @override
   void initState() {
@@ -49,6 +53,7 @@ class _EditState extends State<Edit> {
           jenis = TextEditingController(text: data['jenis']);
           hargaumum = TextEditingController(text: data['hargaumum']);
           hargagrosir = TextEditingController(text: data['hargagrosir']);
+          idsatuan = TextEditingController(text: data['idsatuan']);
         });
       }
     } catch (e) {
@@ -65,7 +70,8 @@ class _EditState extends State<Edit> {
           "barang": barang.text,
           "jenis": jenis.text,
           "hargaumum": hargaumum.text,
-          "hargagrosir": hargagrosir.text
+          "hargagrosir": hargagrosir.text,
+          "idsatuan": idsatuan.text
         },
       ).then((value) {
         //print message after insert to database
@@ -104,7 +110,6 @@ class _EditState extends State<Edit> {
 
       });
 
-
     } catch (e) {
       print(e);
     }
@@ -115,7 +120,7 @@ class _EditState extends State<Edit> {
     return Scaffold(
       backgroundColor: backgroundColor1,
       appBar: AppBar(
-        title: Text("Ubah data " + barang.text),
+        title: Text("Ubah " + barang.text),
         // ignore: prefer_const_literals_to_create_immutables
         actions: [
           Container(
@@ -160,6 +165,7 @@ class _EditState extends State<Edit> {
                 satuanInput(),
                 hargagrosirinput(),
                 hargaumuminput(),
+                jumlahperdus(),
 
                 SizedBox(height: 40),
 
@@ -334,6 +340,7 @@ class _EditState extends State<Edit> {
                   Expanded(
                     child: TextFormField(
                       controller: hargagrosir,
+                      keyboardType: TextInputType.number,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Masukan Harga Grosir', hintStyle: subtitleTextStyle),
@@ -386,9 +393,64 @@ class _EditState extends State<Edit> {
                   Expanded(
                     child: TextFormField(
                       controller: hargaumum,
+                      keyboardType: TextInputType.number,
                       style: primaryTextStyle,
                       decoration: InputDecoration.collapsed(
                           hintText: 'Masukan Harga Umum', hintStyle: subtitleTextStyle),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Ngga boleh kosong mah';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+  Widget jumlahperdus() {
+    return Container(
+      margin: EdgeInsets.only(top: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Jumlah isi barang',
+              style: primaryTextStyle.copyWith(
+                fontSize: 20,
+                fontWeight: medium,
+              )),
+          SizedBox(
+            height: 12,
+          ),
+          Container(
+            height: 60,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+                color: backgroundColor2,
+                borderRadius: BorderRadius.circular(12)),
+            child: Center(
+              child: Row(
+                children: [
+                  Image.asset(
+                    'aset/poin.png',
+                    width: 25,
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: TextFormField(
+                      controller: idsatuan,
+                      keyboardType: TextInputType.number,
+                      style: primaryTextStyle,
+                      decoration: InputDecoration.collapsed(
+                          hintText: 'Masukan jumlah isi barang',
+                          hintStyle: subtitleTextStyle),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Ngga boleh kosong mah';

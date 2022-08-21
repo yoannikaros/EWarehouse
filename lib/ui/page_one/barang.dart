@@ -3,8 +3,6 @@ import '../../shared/theme.dart';
 import 'cariBarang.dart';
 import 'package:tokolina/Services/barang/apiserviceBarang.dart';
 import 'package:tokolina/model/barangModels.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import '../operation/add.dart';
 import '../operation/edit.dart';
@@ -20,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   //make list variable to accomodate all data from database
 
   FetchUserList _userList = FetchUserList();
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +43,8 @@ class _HomePageState extends State<HomePage> {
               builder: (context, snapshot) {
                 var data = snapshot.data;
                 return ListView.builder(
-                    itemCount: data?.length,
+                    itemCount: 100,
                     itemBuilder: (context, index) {
-
                       // Convert To String Grosir
                       var grosir = '${data?[index].hargagrosir}';
                       var grosirConventer = int.parse(grosir);
@@ -54,6 +52,7 @@ class _HomePageState extends State<HomePage> {
                       // Convert To String Umum
                       var umum = '${data?[index].hargaumum}';
                       var umumConventer = int.parse(umum);
+
 
                       if (!snapshot.hasData) {
                         return Center(child: CircularProgressIndicator());
@@ -85,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            '${data?[index].kodeItem}',
+                                            '${data?[index].idsatuan}',
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,

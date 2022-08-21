@@ -86,7 +86,7 @@ class SearchUser extends SearchDelegate {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        '${data?[index].kodeItem}',
+                                        '${data?[index].idsatuan}',
                                         style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,

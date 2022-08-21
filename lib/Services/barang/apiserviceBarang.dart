@@ -6,6 +6,7 @@ import 'package:tokolina/model/barangModels.dart';
 class FetchUserList {
   var data = [];
   List<DataBarang> results = [];
+
   String urlList = 'http://192.168.100.193/toko/api/barang/list.php';
 
   Future<List<DataBarang>> getuserList({String? query}) async {

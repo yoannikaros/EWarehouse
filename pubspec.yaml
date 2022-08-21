@@ -54,6 +54,7 @@ dependencies:
   flutter_bloc: ^7.1.0
   hydrated_bloc: ^7.0.1
   # pelengkap
+  double_back_to_close: ^2.0.0
   connectivity_wrapper: ^1.0.6
   awesome_snackbar_content: ^0.0.8
   app_settings: ^4.1.8

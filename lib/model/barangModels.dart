@@ -27,13 +27,16 @@ class DataBarang {
   String? jenis;
   String? hargaumum;
   String? hargagrosir;
+  String? idsatuan;
 
   DataBarang(
       {this.kodeItem,
         this.barang,
         this.jenis,
         this.hargaumum,
-        this.hargagrosir});
+        this.hargagrosir,
+        this.idsatuan
+      });
 
   DataBarang.fromJson(Map<String, dynamic> json) {
     kodeItem = json['kode_item'];
@@ -41,6 +44,7 @@ class DataBarang {
     jenis = json['jenis'];
     hargaumum = json['hargaumum'];
     hargagrosir = json['hargagrosir'];
+    idsatuan = json['idsatuan'];
   }
 
   Map<String, dynamic> toJson() {
@@ -50,6 +54,7 @@ class DataBarang {
     data['jenis'] = this.jenis;
     data['hargaumum'] = this.hargaumum;
     data['hargagrosir'] = this.hargagrosir;
+    data['idsatuan'] = this.idsatuan;
     return data;
   }
 }

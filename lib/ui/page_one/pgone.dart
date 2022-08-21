@@ -1,3 +1,8 @@
+import 'dart:async';
+
+import 'package:app_settings/app_settings.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import 'package:tokolina/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -244,10 +249,31 @@ class _PageOneState extends State<PageOne> {
           children: [
             Row(
               children: [
+
                 //Barang
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/barang');
+                  onTap: () async {
+
+                    if (await ConnectivityWrapper.instance.isConnected) {
+                      // TODO: implement initState
+                      Navigator.pushNamed(context, '/barang');
+                    } else {
+                      var snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Wifi ngga nyambung mah!',
+                          message:
+                          'coba konekin wifinya mah!',
+                          contentType: ContentType.failure,
+                        ),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Timer(Duration(seconds: 5), () =>  AppSettings.openWIFISettings());
+                    }
+
                   },
                   child: Container(
                     height: 194,
@@ -287,8 +313,26 @@ class _PageOneState extends State<PageOne> {
 
                 //Tambah Barang
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/tambah');
+                  onTap: () async {
+                    if (await ConnectivityWrapper.instance.isConnected) {
+                      // TODO: implement initState
+                      Navigator.pushNamed(context, '/tambah');
+                    } else {
+                      var snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Wifi ngga nyambung mah!',
+                          message:
+                          'coba konekin wifinya mah!',
+                          contentType: ContentType.failure,
+                        ),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Timer(Duration(seconds: 5), () =>  AppSettings.openWIFISettings());
+                    }
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 20),
@@ -329,8 +373,28 @@ class _PageOneState extends State<PageOne> {
 
                 //Konsumen
                 GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/konsumen');
+                  onTap: () async {
+
+                    if (await ConnectivityWrapper.instance.isConnected) {
+                      // TODO: implement initState
+                      Navigator.pushNamed(context, '/konsumen');
+                    } else {
+                      var snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Wifi ngga nyambung mah!',
+                          message:
+                          'coba konekin wifinya mah!',
+                          contentType: ContentType.failure,
+                        ),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      Timer(Duration(seconds: 5), () =>  AppSettings.openWIFISettings());
+                    }
+
                   },
                   child: Container(
                     margin: EdgeInsets.only(left: 20),

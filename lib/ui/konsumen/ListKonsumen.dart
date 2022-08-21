@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tokolina/model/konsumenModel.dart';
 import 'package:tokolina/shared/theme.dart';
+import 'package:tokolina/ui/hutang/bayarhutang.dart';
 import '../../Services/konsumen/ApiServiceKonsumen.dart';
 import 'CariKonsumen.dart';
-
+import 'package:intl/intl.dart';
 
 
 class KonsumenKu extends StatefulWidget {
@@ -39,88 +40,102 @@ class _KonsumenKuState extends State<KonsumenKu> {
                 return ListView.builder(
                     itemCount: data?.length,
                     itemBuilder: (context, index) {
+
+                      // Convert To String hutang
+                      var hutangnya = '${data?[index].hutang}';
+                      var hutangConventer = int.parse(hutangnya);
+
                       if (!snapshot.hasData) {
                         return Center(child: CircularProgressIndicator());
                       }
-                      return Stack(
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                title: Row(
-                                  children: [
-                                    Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                        color: Colors.deepPurpleAccent,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${data?[index].point}',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(width: 20),
-                                    Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            '${data?[index].namaPelanggan}',
-                                            style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w800),
+                      return GestureDetector(
+                        onTap: (){
+
+
+
+                          Navigator.push(
+                              context,
+                              //routing into edit page
+                              //we pass the id note
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      bayarhutang(identitas: '${data?[index].identitas}')));
+                        },
+                        child: Stack(
+                          children: [
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ListTile(
+                                  title: Row(
+                                      children: [
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          decoration: BoxDecoration(
+                                            color: Colors.deepPurpleAccent,
+                                            borderRadius: BorderRadius.circular(10),
                                           ),
-                                          SizedBox(height: 10),
-                                          Row(
+                                          child: Center(
+                                            child: Text(
+                                              '${data?[index].point}',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 20),
+                                        Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Rp. ',
+                                                '${data?[index].namaPelanggan}',
+
                                                 style: TextStyle(
-                                                  color: deskrisimenu,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                                    fontSize: 22,
+                                                    fontWeight: FontWeight.w800),
                                               ),
-                                              Text(
-                                                '${data?[index].hutang}',
-                                                style: TextStyle(
-                                                  color: deskrisimenu,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                              SizedBox(height: 10),
+                                              Row(
+                                                children: [
+
+                                                  Text(
+                                                    '${NumberFormat.currency(locale: 'id', decimalDigits: 0, symbol: 'Rp.  ').format(hutangConventer)}',
+                                                    style: TextStyle(
+                                                      color: deskrisimenu,
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ])
-                                  ],
+                                            ])
+                                      ],
+                                    ),
+                                  ),
+                                  // trailing: Text('More Info'),
                                 ),
-                                // trailing: Text('More Info'),
+                              ),
+
+
+                            Container(
+                              margin: EdgeInsets.only(left: 370, top: 35),
+                              child: Text(
+                                '${data?[index].alamat}',
+                                style: TextStyle(
+                                  color: utama,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
-                          ),
 
-                          Container(
-                            margin: EdgeInsets.only(left: 420, top: 32),
-                            child: Text(
-                              '${data?[index].alamat}',
-                              style: TextStyle(
-                                color: utama,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
+                          ],
 
-                        ],
-
+                        ),
                       );
                     });
               }),

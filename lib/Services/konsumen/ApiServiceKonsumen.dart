@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:tokolina/model/barangModels.dart';
 import 'package:tokolina/model/konsumenModel.dart';
